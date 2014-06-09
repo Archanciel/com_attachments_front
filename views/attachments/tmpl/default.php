@@ -181,7 +181,8 @@ for ($i=0, $n=count($rows); $i < $n; $i++) {
 				}
 			}
 		$html .= "</a>";
-		$html .= "<a class=\"at_url\" href=\"$url\"$target title=\"$tooltip\">$filename</a>";
+// don't want to display the file name ! JPS 2014-06-07	
+//		$html .= "<a class=\"at_url\" href=\"$url\"$target title=\"$tooltip\">$filename</a>";
 		}
 	else {
 		$tooltip = JText::sprintf('DOWNLOAD_THIS_FILE_S', $actual_filename);

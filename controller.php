@@ -471,8 +471,8 @@ class AttachmentsController extends JController
 
 		// Output the HTML
 		echo '<div class="requestLogin">';
-		echo "<h1>$must_be_logged_in</h1>";
-		echo "<h2>".JText::sprintf('REGISTER_HERE', $ref)."</h2>";
+		echo "$must_be_logged_in";
+		echo " $ref";
 		echo '</div>';
 	}
 

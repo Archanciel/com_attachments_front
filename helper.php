@@ -886,7 +886,10 @@ class AttachmentsHelper
 		$attachment->filename_sys = $filename_sys;
 		$attachment->url = $url;
 		$attachment->file_type = $ftype;
-		$attachment->file_size = $_FILES['upload']['size'];
+		// don't want to populate the file size since this info comes from the add attachment 
+		// form and is transferred through the bind in administrator\components\com_attachments\
+		// controller.php ! JPS 2014-06-08
+		//$attachment->file_size = $_FILES['upload']['size'];
 
 		// If we are creating the attachment, set its initial state
 		if ( $save_type == 'upload' ) {
@@ -927,7 +930,8 @@ class AttachmentsHelper
 
 		// Move the file
 		$msg = "";
-		if (JFile::upload($_FILES['upload']['tmp_name'], $filename_sys)) {
+		// we don't want to phyaically upload the file !
+		if (TRUE or JFile::upload($_FILES['upload']['tmp_name'], $filename_sys)) {
 			$size = (int)( $attachment->file_size / 1024.0 );
 			chmod($filename_sys, 0644);
 			if ( $save_type == 'update' )
