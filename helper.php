@@ -342,7 +342,9 @@ class AttachmentsHelper
 			$errmsg = JText::sprintf('ERROR_ADDING_INDEX_HTML_IN_S', $upload_dir) . ' (ERR 38)';
 			JError::raiseError(500, $errmsg);
 			}
-
+			
+		return true;	// JPS: skip the damned code below. Don't want the .htaccess to be changed !
+			
 		// If this is secure, create the .htindex file, if necessary
 		$hta_fname = $upload_dir.DS.'.htaccess';
 		jimport('joomla.filesystem.file');
@@ -781,8 +783,10 @@ class AttachmentsHelper
 		$upload_dir = JPATH_SITE . DS . $upload_url;
 
 		// Figure out the system filename
-		$path = $parent->getAttachmentPath($attachment->parent_entity,
-										   $attachment->parent_id, null);
+		
+// JPS: don't want to upload elsewhere than in the attachment root dir !		
+//		$path = $parent->getAttachmentPath($attachment->parent_entity,
+//										   $attachment->parent_id, null);
 		$fullpath = $upload_dir . DS . $path;
 
 		// Make sure the directory exists
@@ -886,9 +890,9 @@ class AttachmentsHelper
 		$attachment->filename_sys = $filename_sys;
 		$attachment->url = $url;
 		$attachment->file_type = $ftype;
-		// don't want to populate the file size since this info comes from the add attachment 
+		// JPS: don't want to populate the file size since this info comes from the add attachment 
 		// form and is transferred through the bind in administrator\components\com_attachments\
-		// controller.php ! JPS 2014-06-08
+		// controller.php !
 		//$attachment->file_size = $_FILES['upload']['size'];
 
 		// If we are creating the attachment, set its initial state
