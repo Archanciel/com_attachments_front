@@ -808,7 +808,7 @@ class AttachmentsHelper
 		$duplicate_filename = false;
 		if ( $save_type == 'upload' AND JFile::exists($filename_sys) ) {
 			// Cannot overwrite an existing file when creating a new attachment!
-			$duplicate_filename = true;
+			// $duplicate_filename = true; JPS as the attached file was already uploaded with FileZilla on thr server, this is not an error !
 			}
 		if ( $save_type == 'update' AND JFile::exists($filename_sys) ) {
 			// If updating, we may replace the existing file but may not overwrite any other existing file
@@ -934,8 +934,9 @@ class AttachmentsHelper
 
 		// Move the file
 		$msg = "";
-		// we don't want to phyaically upload the file !
-		if (TRUE or JFile::upload($_FILES['upload']['tmp_name'], $filename_sys)) {
+		// JPS: we don't want to phyaically upload the file !
+//		if (JFile::upload($_FILES['upload']['tmp_name'], $filename_sys)) {
+		if (TRUE) {
 			$size = (int)( $attachment->file_size / 1024.0 );
 			chmod($filename_sys, 0644);
 			if ( $save_type == 'update' )
