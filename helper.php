@@ -546,7 +546,10 @@ class AttachmentsHelper
 		// Get the new filename
 		//	 (Note: The following replacement is necessary to allow
 		//			single quotes in filenames to work correctly.)
-		$filename = rtrim(JString::str_ireplace("\'", "'", $_FILES['upload']['name']), '.');
+		// $filename = rtrim(JString::str_ireplace("\'", "'", $_FILES['upload']['name']), '.');
+		$upload_filepath = JRequest::getVar( 'upload', '', 'get');  // JPS: this retrieves the full file path from which the file name is extraced !
+		$filename = basename($upload_filepath);
+		
 		$ftype = $_FILES['upload']['type'];
 
 		$from = JRequest::getWord('from');
@@ -569,8 +572,10 @@ class AttachmentsHelper
 			}
 
 		// Make sure a file was successfully uploaded
-		if ( (($_FILES['upload']['size'] == 0) &&
-			  ($_FILES['upload']['tmp_name'] == '')) || $bad_chars || $bad_filename ) {
+		// JPS: since post form method was set to get, $_FILES is empty and testing it must be skipped !
+// 		if ( (($_FILES['upload']['size'] == 0) &&
+// 			  ($_FILES['upload']['tmp_name'] == '')) || $bad_chars || $bad_filename ) {
+		if (TRUE == FALSE){ // JPS: skip if body !
 
 			// Guess the type of error
 			if ( $bad_filename ) {
@@ -787,8 +792,9 @@ class AttachmentsHelper
 // JPS: don't want to upload elsewhere than in the attachment root dir !		
 //		$path = $parent->getAttachmentPath($attachment->parent_entity,
 //										   $attachment->parent_id, null);
-		$fullpath = $upload_dir . DS . $path;
-
+//		$fullpath = $upload_dir . DS . $path;
+		$fullpath = $upload_dir;
+		
 		// Make sure the directory exists
 		if ( !JFile::exists($fullpath) ) {
 			jimport( 'joomla.filesystem.folder' );
