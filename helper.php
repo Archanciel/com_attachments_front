@@ -550,8 +550,9 @@ class AttachmentsHelper
 		$upload_filepath = JRequest::getVar( 'upload', '', 'get');  // JPS: this retrieves the full file path from which the file name is extraced !
 		$filename = basename($upload_filepath);
 		
-		$ftype = $_FILES['upload']['type'];
-
+		// $ftype = $_FILES['upload']['type'];
+		$ftype = 'audio/mpeg';	// JPS: type is not available in the $_GET request structure. So, it must be populated by code !
+		
 		$from = JRequest::getWord('from');
 
 		// Check for double-extension exploit
