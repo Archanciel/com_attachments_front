@@ -897,11 +897,13 @@ class AttachmentsHelper
 		$attachment->filename_sys = $filename_sys;
 		$attachment->url = $url;
 		$attachment->file_type = $ftype;
-		// JPS: don't want to populate the file size since this info comes from the add attachment 
-		// form and is transferred through the bind in administrator\components\com_attachments\
-		// controller.php !
-		//$attachment->file_size = $_FILES['upload']['size'];
-
+		// JPS: $_FILES is not populated since form method changed from post to get. Do a filesize() instead if the file size was not specified in the form !
+		// $attachment->file_size = $_FILES['upload']['size'];
+		if ($attachment->file_size == 0) {
+			$attachment->file_size = filesize($filename_sys);
+		}   // else comes from the add attachment form and is transferred through the bind in 
+			// administrator\components\com_attachments\controllers\attachment.php !
+				
 		// If we are creating the attachment, set its initial state
 		if ( $save_type == 'upload' ) {
 			if ( $params->get('publish_default', false) ) {
