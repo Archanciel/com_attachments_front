@@ -793,8 +793,7 @@ class AttachmentsHelper
 // JPS: don't want to upload elsewhere than in the attachment root dir !		
 //		$path = $parent->getAttachmentPath($attachment->parent_entity,
 //										   $attachment->parent_id, null);
-//		$fullpath = $upload_dir . DS . $path;
-		$fullpath = $upload_dir;
+		$fullpath = $upload_dir . DS;
 		
 		// Make sure the directory exists
 		if ( !JFile::exists($fullpath) ) {
